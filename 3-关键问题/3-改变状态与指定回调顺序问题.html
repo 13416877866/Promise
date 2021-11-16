@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise关键问题 3 "改变状态与指定回调顺序问题" </title>
+</head>
+<body>
+    <script>
+        /* 
+        改变状态先执行指定回调函数后执行情况：
+        new Promise()括号中的参数是同步执行的
+        直接去调用resolve()和reject()函数
+        */
+
+        /* 
+        先指定回调函数在改变状态情况：
+        new Promise()中括号中的参数是异步执行的
+        异步执行:里面有setTimeout()定时器
+        */
+
+        /* 
+        改变promise状态和指定回调函数谁先谁后
+        1.都有可能，正常情况下是先指定回调函数再改变状态，但也可以先改变状态再指定回调
+        2.如何先改状态再指定回调？
+        （1）在执行器中直接调用resolve()/reject()
+        （2）延长更长的时间才调用then
+        3.什么时候才能得到数据？（意思是回调函数到底什么时候执行）
+        （1）如果先指定回调，那当状态发生改变时，回调函数就会调用，得到数据（在执行了resolve()/reject()后再去执行回调）
+        （2）如果先改变的状态，那当指定回调时，回调函数就会调用来处理成功或失败的结果，得到数据
+        */
+        let p=new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                resolve('OK');
+            },1000);
+            
+        });
+
+        p.then(value=>{
+            console.log(value);
+        },reason=>{
+
+        });
+    </script>
+</body>
+</html>
