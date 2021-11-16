@@ -1,0 +1,6 @@
+##Promise的状态
+实例对象中的一个属性[PromiseState]
+*pending 未决定的
+*resolved/fullfilled成功
+*rejected失败
+只能从从未知状态到成功或失败转变
