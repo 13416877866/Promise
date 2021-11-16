@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Promise-封装 | 2 - resolve 与 reject </title>
-    <!-- <script src="./promise.js"></script> -->
+    <script src="./promise.js"></script>
 </head>
 <body>
     <script>
         let p = new Promise((resolve, reject) => {
-            // resolve('OK');
-            // reject('error');
+            reject('error');
+            resolve('OK');
+            
             // 抛出异常
-            throw 'error';
+            // throw 'error';
         });
         console.log(p);
         // p.then(value => {
