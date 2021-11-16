@@ -1,0 +1,5 @@
+##  Promise 对象的值
+实例对象中的另一个属性 [PromiseResult]
+保存着对象[成功/失败]的结果
+*resolve
+*reject
