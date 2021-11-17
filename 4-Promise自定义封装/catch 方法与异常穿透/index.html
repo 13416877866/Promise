@@ -9,14 +9,13 @@
 </head>
 <body>
     <script>
-     let p=Promise.resolve('ok');
-     let p2=Promise.resolve(new Promise((resolve,reject)=>{
-        //  resolve('success');
-        reject('error');
-     }));
-     const p3=Promise.resolve(Promise.resolve('oh yeah'));
-     console.log(p3);
-        
+     const p=Promise.reject('Error');
+     const p2=Promise.reject(new Promise((resolve,reject)=>{
+         resolve('ok');
+     }))
+
+     console.log(p);
+     console.log(p2);
     </script>
 </body>
 </html>
