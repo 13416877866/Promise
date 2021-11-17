@@ -129,3 +129,24 @@ Promise.reject=function(reason){
        reject(reason);
    })
 }
+// 添加all方法
+Promise.all=function(promises){
+    // 返回的结果为promise对象
+    return new Promise((resolve,reject)=>{
+        let count=0;
+        let arr=[];
+        for(let i=0;i<promises.length;i++){
+            promises[i].then(v=>{
+                // 得知对象的状态是成功
+                // 每个对象都成功
+                count++;
+                arr[i]=v;
+                if(count===promises.length){
+                    resolve(arr);
+                }
+            },r=>{
+                reject(r);
+            })
+        }
+    })
+}

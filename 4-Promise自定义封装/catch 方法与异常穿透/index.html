@@ -9,13 +9,18 @@
 </head>
 <body>
     <script>
-     const p=Promise.reject('Error');
-     const p2=Promise.reject(new Promise((resolve,reject)=>{
-         resolve('ok');
-     }))
+    let p1=new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            resolve('ok');
+        },1000)
+      
+    })
 
-     console.log(p);
-     console.log(p2);
+    let p2=Promise.reject('Success');
+    let p3=Promise.resolve('oh Yeah');
+
+    let result=Promise.all([p1,p2,p3]);
+    console.log(result);
     </script>
 </body>
 </html>
