@@ -4,32 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promise-封装 | 2 - resolve 与 reject </title>
+    <title>Promise-封装 | 10 - 异步任务 then 返回结果</title>
     <script src="./promise.js"></script>
 </head>
 <body>
     <script>
-        // 实例化对象
+        //实例化对象
         let p = new Promise((resolve, reject) => {
-            setTimeout(()=>{
+            setTimeout(() => {
                 // resolve('OK');
-                reject('err');
-              
-            });
+               reject('error');
+            }, 1000)
         });
-    //    console.log(p);
-        p.then(value=>{
-            console.log(value);
-        },reason=>{
-            console.warn(reason);
-        })
+       
+        //执行 then 方法
+        const res = p.then(value => {
+            // console.log(value);
+            // console.log(123);
+            return "oh yeah";
+        }, reason=>{
+            // console.warn(reason);
+            // return "oh no";
+            throw '出错了';
+        });
 
-        p.then(value=>{
-            alert(value);
-        },reason=>{
-            alert(reason);
-        })
-        console.log(p);
+        console.log(res);
     </script>
 </body>
 </html>

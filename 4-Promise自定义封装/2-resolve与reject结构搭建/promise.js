@@ -50,9 +50,27 @@ function Promise(executor){
 
 //添加 then 方法
 Promise.prototype.then = function(onResolved, onRejected){
+    const self=this;
+    return new Promise((resolve,reject)=>{
     //调用回调函数  PromiseState
     if(this.PromiseState === 'fulfilled'){
-        onResolved(this.PromiseResult);
+        try{
+             // 获取回调函数的执行结果
+        let result=onResolved(this.PromiseResult);
+        // 判断
+        if(result instanceof Promise){
+            result.then(v=>{
+                resolve(v);
+            },r=>{
+                reject(r);
+            });
+        }else{
+            // 结果的对象状态为成功
+            resolve(result);
+        }
+        }catch(e){
+            reject(e);
+        }
     }
     if(this.PromiseState === 'rejected'){
         onRejected(this.PromiseResult);
@@ -61,8 +79,44 @@ Promise.prototype.then = function(onResolved, onRejected){
     if(this.PromiseState==='pending'){
         // 保存回调函数
         this.callbacks.push({
-            onResolved,
-            onRejected
+            onResolved:function(){
+                try{
+                    // console.log('success');
+                // 执行回调函数
+               let result=onResolved(self.PromiseResult);
+               if(result instanceof Promise){
+                   result.then(v=>{
+                    resolve(v);
+                   },r=>{
+                    reject(r);
+                   })
+               }else{
+                   resolve(result);
+               }
+                }catch(e){
+                    reject(e);
+                }
+            },
+            onRejected:function(){
+                try{
+                     // console.log('error');
+                 // 执行回调函数
+                 let result=onRejected(self.PromiseResult);
+                 if(result instanceof Promise){
+                     result.then(v=>{
+                      resolve(v);
+                     },r=>{
+                      reject(r);
+                     })
+                 }else{
+                     resolve(result);
+                 }
+                }catch(e){
+                    reject(e);
+                }
+               
+            }
         });
     }
+})
 }
