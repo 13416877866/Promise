@@ -107,3 +107,19 @@ Promise.prototype.then = function(onResolved, onRejected){
 Promise.prototype.catch = function(onRejected){
     return this.then(undefined, onRejected);
 }
+
+// 添加resolve方法（属于Promise这个函数对象，不属于实例对象）
+Promise.resolve=function(value){
+    // 返回Promise对象
+    return new Promise((resolve,reject)=>{
+        if(value instanceof Promise){
+            value.then(v=>{
+                resolve(v);
+            },r=>{
+                reject(r);
+            })
+        }else{
+            resolve(value);
+        }
+    });
+}

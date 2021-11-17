@@ -9,22 +9,13 @@
 </head>
 <body>
     <script>
-        // 实例化对象
-        let p=new Promise((resolve,reject)=>{
-            setTimeout(()=>{
-                // reject('OK');
-                resolve('OK');
-            },1000);
-        });
-       
-        p.then()
-        .then(value=>{
-            console.log(222);
-        }).then(value=>{
-            console.log(333);
-        }).catch(reason=>{
-            console.warn(reason);
-        })
+     let p=Promise.resolve('ok');
+     let p2=Promise.resolve(new Promise((resolve,reject)=>{
+        //  resolve('success');
+        reject('error');
+     }));
+     const p3=Promise.resolve(Promise.resolve('oh yeah'));
+     console.log(p3);
         
     </script>
 </body>
