@@ -19,8 +19,10 @@ function Promise(executor){
         /* if(self.callback.onResolved){
             self.callback.onResolved(data);
         } */
-        self.callbacks.forEach(item=>{
-            item.onResolved(data);
+        setTimeout(()=>{
+            self.callbacks.forEach(item=>{
+                item.onResolved(data);
+            });
         });
     }
     //reject 函数
@@ -35,9 +37,11 @@ function Promise(executor){
       /*   if(self.callback.onRejected){
             self.callback.onRejected(data);
         } */
-        self.callbacks.forEach(item=>{
-            item.onRejected(data);
-        })
+        setTimeout(()=>{
+            self.callbacks.forEach(item=>{
+                item.onRejected(data);
+            })
+        });
     }
     try{
         //同步调用『执行器函数』
@@ -84,10 +88,14 @@ Promise.prototype.then = function(onResolved, onRejected){
     }
     //调用回调函数  PromiseState
     if(this.PromiseState === 'fulfilled'){
-      callback(onResolved);
+        setTimeout(()=>{
+            callback(onResolved);
+        });
     }
     if(this.PromiseState === 'rejected'){
-       callback(onRejected);
+        setTimeout(()=>{
+            callback(onRejected);
+        });
     }
     //判断 pending 状态
     if(this.PromiseState==='pending'){
